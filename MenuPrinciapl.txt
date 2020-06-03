@@ -1,0 +1,365 @@
+package menuprincipal;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+/**
+ *
+ * @author Pedro e Fernando
+ */
+public class MenuPrincipal{
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        
+        //Arrays de ambos os menus
+        ArrayList<Pessoa> cliente = new ArrayList();
+        ArrayList<Livro> biblioteca = new ArrayList();
+        
+        Scanner teclado = new Scanner(System.in);
+        
+        //Variável decontrole do menu principal
+        int MasterControl = 0;
+        
+        //Início da estrutura de repetição do Menu Principal
+        do{
+            //Menu principal
+            System.out.println("Digite os respectivos números para acessar os outros Menus");
+            System.out.println("1 - Menu do Cliente");
+            System.out.println("2 - Menu dos Livros");
+            System.out.println("3 - Encerrar Aplicação");
+            
+            System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            
+            
+            
+            int menu = teclado.nextInt();
+             //Início da Estrutura de decisão do Menu principal
+             for (int i = 0; i < 100; ++i)  
+                System.out.println();
+            switch(menu){
+                case 1:
+                    //Variável Principal que recebe os dados do Menu 1 
+                    Scanner input = new Scanner(System.in);
+                    //Variável que recebe os dados dos cliente
+                    Scanner input1 = new Scanner(System.in);
+        
+       //Variável de Controle do Menu 1          
+        int ctrl = 0;
+        
+         //Início da estrutura de repetição do Menu 1
+        do{
+            System.out.println("Digite os respectivos números para acessar as funcões!");
+            System.out.println("1 - Cadastrar cliente");    
+            System.out.println("2 - Buscar cliente");
+            System.out.println("3 - Excluir cliente");
+            System.out.println("4 - Listar cliente");
+            System.out.println("5 - Alterar cliente");
+            System.out.println("6 - encerrar");
+            
+            System.out.println("-------------------------------------------------------------------");
+           
+            int menu1 = input.nextInt();
+            
+            for (int i = 0; i < 100; ++i)  
+                System.out.println();
+           
+           //Menu 1
+            switch(menu1){
+                //Adição de um novo cliente
+                case 1:
+                    
+                    //Dados do Cliente
+                    System.out.print("Nome do cliente: ");
+                    String nome = input1.nextLine();
+                    System.out.print("Telefone do cliente: ");
+                    String telefone = input1.nextLine();
+                    System.out.print("CPF do cliente: ");
+                    String cpf = input1.nextLine();
+                  
+
+                    cliente.add(new Pessoa(nome, telefone, cpf));
+                    
+                    System.out.println("--------------------------------------------------------------");
+                
+                break;
+                
+                //Busca por cliente específico 
+                case 2:
+                    
+                    System.out.println("Sua lista tem "+cliente.size()+" cliente(s)");
+                    
+                    if(cliente.isEmpty()){
+                        
+                        System.out.println("Sua lista não possui nenhum cliente");
+                        
+                    }else{
+                        
+                        System.out.println("Qual cliente você deseja procurar?");
+                        String procurar = input1.nextLine();
+                        
+                        for (int i = 0; i <cliente.size(); i++){
+                            Pessoa idPessoa = cliente.get(i);
+                            if (idPessoa.getNome().equalsIgnoreCase(procurar)){
+                                cliente.get(i);
+                                System.out.format("%1s%20s%20s%n", idPessoa.getNome(), idPessoa.getTelefone(), idPessoa.getCpf());
+                            
+                             }
+                        }  
+                    }
+                    
+                    System.out.println("---------------------------------------------------------------");
+                    
+                break;
+                
+                //Deletar Clinte
+                case 3:
+                    
+                if(cliente.isEmpty()){
+                    
+                    System.out.println("Desculpe, mas apararntemente ainda não existem clientes para apagar");
+                    
+                }else{      
+                    System.out.println("Qual cliente você deseja vai remover: ");
+                    String excluir = input1.nextLine();
+                
+                for (int i = 0; i <cliente.size(); i++) {
+                    Pessoa idCliente = cliente.get(i);
+                    if(idCliente.getNome().equalsIgnoreCase(excluir)){
+                        cliente.remove(i);
+                        System.out.println("Cliente xcluido com sucesso!");
+                    }
+                }
+            }
+                    System.out.println("---------------------------------------------------------------------"); 
+                
+                break;
+                
+                //Listar Todos os Clientes
+                case 4:
+                    
+                    System.out.println("----------------------------------------------------------------------");
+                    System.out.printf("%1s%2s%15s%15s%n","N°: ","Nome:","Número:", "CPF:");
+                    int n = 0;
+                    
+                for(Pessoa a: cliente){
+                    n++;
+                    //System.out.println(n + " " + a.getNome() + " " + a.getTelefone() + " " + a.getCpf());
+                    System.out.printf("%d %5s%15s%15s%n", n, a.getNome(), a.getTelefone(), a.getCpf());
+                }   
+                   System.out.println("----------------------------------------------------------------------"); 
+                
+                break;   
+                
+                //Alterar dados sobre um clinte específico 
+                case 5:
+                
+                    System.out.println("Existe algum cliente que você dejesa alterar? ");
+                                         
+                    // Primeira etapa: Encontrar o cliente
+                    if(cliente.isEmpty()){
+                        System.out.println("Desculpe, mas lista não possui nenhum cliente!");
+                    }else{   
+                        String procurar = input1.nextLine();
+                        for (int i = 0; i <cliente.size(); i++){
+                            Pessoa idPessoa = cliente.get(i);
+                            if (idPessoa.getNome().equalsIgnoreCase(procurar)){
+                                cliente.get(i);
+                                //Segunda etapa: Remover dados sobre o cliente
+                                cliente.remove(i);
+                                
+                                    //Terceira etapa: Adicionar os novos dados do cliente
+                                    System.out.print("Novo nome do cliente: ");
+                                    String nomeNew = input1.nextLine();
+                                    System.out.print("Novo telefone do cliente: ");
+                                    String telefoneNew = input1.nextLine();
+                                    System.out.print("Novo cpf do cliente: ");
+                                    String cpfNew = input1.nextLine();
+                                    
+                                    
+                                    cliente.add(new Pessoa(nomeNew, telefoneNew, cpfNew));     
+                             }
+                        }  
+                    }
+                    System.out.println("--------------------------------------------------------------------------");
+                    
+                break;
+                
+                //Encerrar menu 1 ou voltar para o menu principal
+                case 6:
+                    
+                ctrl = 6;    
+                    
+                break;
+                
+                default:
+                    
+                ctrl = 0;
+                
+                break;
+            }
+        //Final da estrutura de repetição do menu 1
+        }while(ctrl<6);
+        
+                break;
+                // Menu 2
+                case 2:
+                   
+                   //Entrada de dados principal do menu 2
+                  Scanner entrada = new Scanner(System.in);
+                  //Entrada de dados do atributos apenas dos livros
+                  Scanner entrada2 = new Scanner(System.in);
+                  
+        //Variável de ncontrole do menu 2
+        int controle = 0;
+        
+        //Inicio da estrutura de repetição do menu 2
+        do{
+            System.out.println("Digite o número da opção que deseja para acessar as funcões!");
+            System.out.println("1° Cadastrar Livros");    
+            System.out.println("2° Buscar Livros");
+            System.out.println("3° Excluir Livros");
+            System.out.println("4° Listar Livros");
+            System.out.println("5° Editar dados dos Livros");
+            System.out.println("6° FINALIZAR!");
+            
+            System.out.println("===================================");
+            
+            int menu2 = entrada.nextInt();
+            
+              for (int i = 0; i < 100; ++i)  
+                System.out.println();
+            //Início da strutura de decisão do menu 2 
+            switch(menu2){
+                //Adicionar Livros
+                case 1:
+                    System.out.print("Nome do Livro: ");
+                    String nomeDoLivro = entrada2.nextLine();
+                    System.out.print("Autor do Livro: ");
+                    String autor = entrada2.nextLine();
+                    System.out.print("Editora: ");
+                    String editora = entrada2.nextLine();
+                    
+                    biblioteca.add(new Livro(nomeDoLivro, autor, editora));
+                    
+                    System.out.println("===================================");
+                
+                break;
+                //Buscar um livros específico
+                case 2:
+                    
+                    System.out.println("Esta lista contém: "+biblioteca.size()+" Livros");
+                    
+                    if(biblioteca.isEmpty()){
+                        
+                        System.out.println("Esta lista não possui nenhum Livro!");
+                        
+                    }else{
+                        
+                        System.out.println("Qual livro você quer encontrar?");
+                        String procurar = entrada2.nextLine();
+                        
+                        for(int i = 0; i <biblioteca.size(); i++){
+                            Livro idCliente = biblioteca.get(i);
+                            if (idCliente.getNomeDoLivro().equalsIgnoreCase(procurar));{
+                                biblioteca.get(i);
+                                System.out.format("%20s%20s%20s%n", idCliente.getNomeDoLivro(), idCliente.getAutor(), idCliente.getEditora());
+                            
+                             }
+                        }  
+                    }
+                    
+                    System.out.println("===================================");
+                    
+                break;
+                //Excluir algum livro
+                case 3:
+                
+                System.out.println("Qual cliente você deseja vai remover: ");
+                String excluir = entrada2.next();
+                
+                for (int i = 0; i <biblioteca.size(); i++) {
+                    Livro idCliente = biblioteca.get(i);
+                    if(idCliente.getNomeDoLivro().equalsIgnoreCase(excluir)){
+                        biblioteca.remove(i);
+                        System.out.println("Excluído com sucesso!");
+                    }
+                }
+                
+                    System.out.println("==================================="); 
+                
+                break;
+                //Mostrar todos os livros já adicionados
+                case 4:
+                    
+                    System.out.println("===================================");
+                    System.out.format("%1s%10s%20s%20s%n","N°:","Nome do Livro:","Autor:", "Editora:");
+                    int n = 0;
+                    
+                for(Livro a: biblioteca){
+                    n++;
+                    System.out.printf("%d %10s%20s%20s%n", n, a.getNomeDoLivro(), a.getAutor(), a.getEditora());
+                }   
+                   System.out.println("=========================================="); 
+                
+                break;   
+                //Alterar dados sobre os livros
+                case 5:
+                
+                     System.out.println("Digite o nome do livro que você dejesa alterar: ");
+                    
+                 if(biblioteca.isEmpty()){
+                        System.out.println("Sua lista não possui nenhum cliente");
+                    }else{  
+                        String procurar = entrada2.nextLine();
+                        for (int i = 0; i <biblioteca.size(); i++){
+                            Livro idLivro = biblioteca.get(i);
+                            if (idLivro.getNomeDoLivro().equalsIgnoreCase(procurar)){
+                                biblioteca.get(i);
+                                biblioteca.remove(i);
+                                
+                                    
+                                    System.out.print("Novo nome do Livro: ");
+                                    String nomeDoLivroNew = entrada2.nextLine();
+                                    System.out.print("Novo nome do Autor: ");
+                                    String autorNew = entrada2.nextLine();
+                                    System.out.print("Novo nome da Editora: ");
+                                    String editoraNew = entrada2.nextLine();
+                                    
+                                    
+                                    biblioteca.add(new Livro(nomeDoLivroNew, autorNew, editoraNew));     
+                             }
+                        }  
+                    }
+                       
+                    
+                break;
+                //Encerrar menu 2 ou voltar para o menu principal
+                case 6:
+                    
+                controle = 6;    
+                    
+                break;
+                
+                default:
+                    
+                controle = 0;
+                
+                break;
+            }
+        //Final da estrutura de reptição do menu 2
+        }while(controle<6);  
+                break;
+                
+                //Encerrar menu principal  
+                case 3:
+                  MasterControl = 4;
+                break;
+            }
+            //Final da estrutura de repetição do menu 
+        }while(MasterControl < 4);
+        
+    }
+    
+}
